@@ -1,0 +1,15 @@
+{{- if .Values.datasetPvc.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.datasetPvc.name }}
+spec:
+  accessModes:
+{{ toYaml .Values.datasetPvc.accessModes | indent 4 }}
+  {{- if .Values.datasetPvc.storageClassName }}
+  storageClassName: {{ .Values.datasetPvc.storageClassName }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.datasetPvc.size }}
+{{- end }}
